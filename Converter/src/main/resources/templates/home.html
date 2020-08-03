@@ -3,26 +3,45 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="/js/main.js"></script>
+	<link rel="stylesheet" href="/css/style.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <h1>Конвертер</h1>
 
-    <select id="currency1" onchange="handleInput()">
-    	<option th:each ="rateData : ${rateDataList}" th:value="${rateData.value}" th:text="${rateData.name}"></option>
-    </select>
-
-	<select id="currency2" onchange="handleInput()">
-    	<option th:each ="rateData : ${rateDataList}" th:value="${rateData.value}" th:text="${rateData.name}"></option>
-    </select>
+	<table border="0" cellpadding="7" cellspacing="0">
+		<tr>
+			<td>
+	        	<select id="currency1">
+	          		<option th:each ="rateData : ${rateDataList}" th:value="${rateData.value}" th:text="${rateData.name}" th:selected="${rateData.currency.getCharcode() == 'USD'}"></option>
+	        	</select>
+	      	</td>
+			<td>
+		        <select id="currency2">
+		        	<option th:each ="rateData : ${rateDataList}" th:value="${rateData.value}" th:text="${rateData.name}"></option>
+		        </select>
+       		</td>
+		</tr>
+		<tr>
+			<td>
+        		<input id="inp" placeholder="Введите сумму..." />
+      		</td>
+			<td>
+        		<input id="result" readonly/>
+      		</td>
+		</tr>
+    	<tr>
+      		<td>
+        		<button onclick="handleInput()">Конвертировать</button>
+      		</td>
+    	</tr>
+	</table>
     
-    <input id="inp" onchange="handleInput()" placeholder="Введите сумму..." />
+    <p class="error" id="message"></p>
     
-    <button onclick="handleInput()">Конвертировать</button>
+    <h2>История операций</h2>
     
-    <p id="message"></p>
-    
-    <table border="1" cellpadding="7" cellspacing="0">
+    <table id="history" border="1" cellpadding="7" cellspacing="0">
 		<tr>
 			<td>Исходная валюта</td>
 			<td>Целевая валюта</td>
@@ -31,11 +50,11 @@
 			<td>Дата</td>
 		</tr>
 		<tr th:each ="event : ${eventList}">
-			<td th:text="${event.currencyId1}"></td>
-			<td th:text="${event.currencyId2}"></td>
+			<td th:text="${event.currency1.name}"></td>
+			<td th:text="${event.currency2.name}"></td>
 			<td th:text="${event.sum}"></td>
 			<td th:text="${event.result}"></td>
-			<td th:text="${event.date}"></td>
+			<td th:text="${event.getDateAsString()}"></td>
 		</tr>
 	</table> 
 

@@ -38,13 +38,9 @@ public class Parser {
     private RateRepository rateRepository;
 	
 	
-	public void parseURL(String url) {
+	public void parseURL(String url, Calendar calendar) {
 		
 		// Check if we need to load anything
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(System.currentTimeMillis());
-		calendar.add(Calendar.DAY_OF_YEAR, 1);
-		
 		List<Rate> tempRateList = rateRepository.findAllByDate(calendar);
 	    if (tempRateList.size() == 0) {
 	    
@@ -65,7 +61,11 @@ public class Parser {
 			
 			// Prepare lists
 			List<Currency> currencyList = new ArrayList<Currency>();
+			Currency rub = new Currency("0", "643", "RUB", "Российский рубль", 1);
+			currencyList.add(rub);
+			
 			List<Rate> rateList = new ArrayList<Rate>();
+			rateList.add(new Rate(rub, 1, calendar));
 			
 			// Parse date - not used
 			/*Element root = doc.getDocumentElement();
@@ -108,11 +108,6 @@ public class Parser {
 		    currencyRepository.saveAll(currencyList);
 		    rateRepository.saveAll(rateList);
 	    }
-	    
-	    /*List<Rate> tempRateList = rateRepository.findAllByDate(calendar);
-	    if (tempRateList.size() < rateList.size()) {
-	    	rateRepository.saveAll(rateList);
-	    }*/
 	}
 	
 	

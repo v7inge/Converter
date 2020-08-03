@@ -62,12 +62,16 @@ public class MainController {
 	@GetMapping("/")
     public String getHome(Model model, HttpServletRequest request) {
 		
+		// Create tomorrow date
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		calendar.add(Calendar.DAY_OF_YEAR, 1);
+		
 		// Parse new data if we need
-		parser.parseURL("http://www.cbr.ru/scripts/XML_daily.asp");
+		parser.parseURL("http://www.cbr.ru/scripts/XML_daily.asp", calendar);
 		
 		// Get current data
-		List<RateData> rateDataList = rateDataRepository.findDataOnDate();
-		rateDataList.add(new RateData("RUR (Российский рубль)", 1));
+		List<RateData> rateDataList = rateDataRepository.findDataOnDate(calendar);
 		model.addAttribute("rateDataList", rateDataList);
 		
 		// Get history
@@ -92,18 +96,19 @@ public class MainController {
 		float result = Float.parseFloat((String) requestParameters.get("result"));
 		List<RateData> rateDataList = (List<RateData>) request.getSession(true).getAttribute("data");
 		
-		String id1 = "", id2 = "";
+		Currency c1 = null, c2 = null;
+		
 		for (RateData rd : rateDataList) {
 			
 			if (rd.getName().equals(name1)) {
-				id1 = rd.getCurrencyId();
+				c1 = rd.getCurrency();
 			}
 			if (rd.getName().equals(name2)) {
-				id2 = rd.getCurrencyId();
+				c2 = rd.getCurrency();
 			}
 		}
 		
-		Event event = new Event(id1, id2, sum, result);
+		Event event = new Event(c1, c2, sum, result);
 		eventRepository.save(event);
 	}
 	
@@ -113,12 +118,5 @@ public class MainController {
 		
 		return "login";
     }
-	
-	
-	private void setSessionAttribute(HttpServletRequest request, String name, String value) {
-		
-		HttpSession session = request.getSession(true);
-	    session.setAttribute(name, value);
-	}
 	
 }

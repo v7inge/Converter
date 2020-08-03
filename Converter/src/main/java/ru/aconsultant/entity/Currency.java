@@ -27,9 +27,7 @@ public class Currency {
 	
     @OneToMany(mappedBy = "currency", fetch = FetchType.LAZY)
     private Collection<Rate> rates;
-	
-    /*@OneToOne(optional = true, mappedBy = "currency")
-    private RateData rateData;*/
+    
 	
 	public Currency() {}
 	

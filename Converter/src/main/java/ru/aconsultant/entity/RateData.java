@@ -6,16 +6,17 @@ import javax.persistence.*;
 @Entity
 public class RateData {
 	
-	@Id
+	/*@Id
 	@Column(name = "currency_id")
-	private String currencyId;
+	private String currencyId;*/
 	
+	@Id
 	@Column
 	private String name;
 	
-	/*@OneToOne(optional = false, mappedBy = "rateData")
+	@ManyToOne(optional = false, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "currency_id")
-    private Currency currency;*/
+	private Currency currency;
 	
 	@Column
 	private Calendar date;
@@ -54,11 +55,19 @@ public class RateData {
 		this.date = date;
 	}	
 	
-	public String getCurrencyId() {
+	/*public String getCurrencyId() {
 		return currencyId;
 	}
 
 	public void setCurrencyId(String currencyId) {
 		this.currencyId = currencyId;
+	}*/
+
+	public Currency getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
 	}
 }

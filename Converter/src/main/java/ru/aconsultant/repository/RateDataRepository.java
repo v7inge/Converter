@@ -1,5 +1,6 @@
 package ru.aconsultant.repository;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +10,6 @@ import ru.aconsultant.entity.RateData;
 
 public interface RateDataRepository extends JpaRepository<RateData, String> {
 
-	/// !!!
 	@Query(value = "SELECT \r\n" + 
 			"c.id AS currency_id, \r\n" +
 			"c.charcode || ' (' || c.name || ')' AS name, \r\n" + 
@@ -17,7 +17,7 @@ public interface RateDataRepository extends JpaRepository<RateData, String> {
 			"r.date \r\n" + 
 			"FROM Currency c LEFT JOIN Rate r\r\n" + 
 			"ON c.id = r.currency_id\r\n" + 
-			"AND r.date = date '2020-08-03'", 
+			"AND r.date = ?1", 
 			nativeQuery = true)
-    List<RateData> findDataOnDate();
+    List<RateData> findDataOnDate(Calendar date);
 }
