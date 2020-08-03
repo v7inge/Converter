@@ -9,7 +9,9 @@ import ru.aconsultant.entity.RateData;
 
 public interface RateDataRepository extends JpaRepository<RateData, String> {
 
+	/// !!!
 	@Query(value = "SELECT \r\n" + 
+			"c.id AS currency_id, \r\n" +
 			"c.charcode || ' (' || c.name || ')' AS name, \r\n" + 
 			"r.value, \r\n" + 
 			"r.date \r\n" + 

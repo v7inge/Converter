@@ -21,6 +21,23 @@
     <button onclick="handleInput()">Конвертировать</button>
     
     <p id="message"></p>
+    
+    <table border="1" cellpadding="7" cellspacing="0">
+		<tr>
+			<td>Исходная валюта</td>
+			<td>Целевая валюта</td>
+			<td>Исходная сумма</td>
+			<td>Результат</td>
+			<td>Дата</td>
+		</tr>
+		<tr th:each ="event : ${eventList}">
+			<td th:text="${event.currencyId1}"></td>
+			<td th:text="${event.currencyId2}"></td>
+			<td th:text="${event.sum}"></td>
+			<td th:text="${event.result}"></td>
+			<td th:text="${event.date}"></td>
+		</tr>
+	</table> 
 
 </body>
 </html>

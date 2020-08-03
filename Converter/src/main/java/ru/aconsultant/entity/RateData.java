@@ -5,10 +5,17 @@ import javax.persistence.*;
 
 @Entity
 public class RateData {
-
+	
 	@Id
+	@Column(name = "currency_id")
+	private String currencyId;
+	
 	@Column
 	private String name;
+	
+	/*@OneToOne(optional = false, mappedBy = "rateData")
+	@JoinColumn(name = "currency_id")
+    private Currency currency;*/
 	
 	@Column
 	private Calendar date;
@@ -46,4 +53,12 @@ public class RateData {
 	public void setDate(Calendar date) {
 		this.date = date;
 	}	
+	
+	public String getCurrencyId() {
+		return currencyId;
+	}
+
+	public void setCurrencyId(String currencyId) {
+		this.currencyId = currencyId;
+	}
 }

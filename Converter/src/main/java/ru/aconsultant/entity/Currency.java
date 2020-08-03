@@ -3,8 +3,6 @@ package ru.aconsultant.entity;
 import java.util.Collection;
 
 import javax.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "Currency")
@@ -27,11 +25,11 @@ public class Currency {
 	@Transient
 	private float value;
 	
-	@Getter
-    @Setter
     @OneToMany(mappedBy = "currency", fetch = FetchType.LAZY)
     private Collection<Rate> rates;
 	
+    /*@OneToOne(optional = true, mappedBy = "currency")
+    private RateData rateData;*/
 	
 	public Currency() {}
 	

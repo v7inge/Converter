@@ -9,8 +9,8 @@ function handleInput() {
 		
 		if (inputIsCorrect(sum)) {
 		
-			sum = parseFloat(sum);
-			let result = value1 / value2 * sum;	
+			sum = parseFloat(sum).toFixed(4);
+			let result = (value1 / value2 * sum).toFixed(4);	
 			console.log("result: " + result);
 			
 			// Notify the server
@@ -59,4 +59,9 @@ function toFloat(sum) {
 function symbolIsCorrect(symbol) {
 	let numbers = "0123456789.";
 	return numbers.includes(symbol);
+}
+
+
+function outputNewEvent() {
+	
 }
