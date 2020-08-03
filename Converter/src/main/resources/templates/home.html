@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<script src="/js/main.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Конвертер</h1>
+
+    <select id="currency1" onchange="handleInput()">
+    	<option th:each ="rateData : ${rateDataList}" th:value="${rateData.value}" th:text="${rateData.name}"></option>
+    </select>
+
+	<select id="currency2" onchange="handleInput()">
+    	<option th:each ="rateData : ${rateDataList}" th:value="${rateData.value}" th:text="${rateData.name}"></option>
+    </select>
+    
+    <input id="inp" onchange="handleInput()" placeholder="Введите сумму..." />
+    
+    <button onclick="handleInput()">Конвертировать</button>
+    
+    <p id="message"></p>
+
+</body>
+</html>
