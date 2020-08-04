@@ -1,6 +1,6 @@
 1. git clone https://github.com/freshnoon/Converter
 2. Зайти в клонированную папку проекта с помощью проводника, зайти в \Converter\Converter\src\main\resources. Открыть файл application.properties. Установить имя и пароль пользователя от postgresql с полными правами. При необходимости установить также верный порт.
-3. Запустить pgadmin и с помощью query tool выполнить скрипт:
+3. Запустить pgadmin. Создать БД с именем Converter. Выбрать ее и с помощью query tool выполнить скрипт:
 
 CREATE TABLE public.Currency
 (
