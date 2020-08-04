@@ -6,10 +6,6 @@ import javax.persistence.*;
 @Entity
 public class RateData {
 	
-	/*@Id
-	@Column(name = "currency_id")
-	private String currencyId;*/
-	
 	@Id
 	@Column
 	private String name;
@@ -53,15 +49,7 @@ public class RateData {
 
 	public void setDate(Calendar date) {
 		this.date = date;
-	}	
-	
-	/*public String getCurrencyId() {
-		return currencyId;
 	}
-
-	public void setCurrencyId(String currencyId) {
-		this.currencyId = currencyId;
-	}*/
 
 	public Currency getCurrency() {
 		return currency;
